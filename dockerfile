@@ -1,19 +1,19 @@
-# Use Node.js LTS version
-FROM node:18
+# Stage 1: Build stage (dev tools)
+FROM node:18 AS build
 
-# Set working directory
 WORKDIR /usr/src/app
-
-# Copy package.json and install dependencies first
 COPY package*.json ./
-
-# Install only production dependencies 
-RUN npm install --only=production
-
-# Copy the rest of the app
+RUN npm install
 COPY . .
 
-# Expose port
+# Stage 2: Production stage
+FROM node:18 AS production
+
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install --only=production
+COPY --from=build /usr/src/app .
+
 EXPOSE 3000
 
 # Run the app
