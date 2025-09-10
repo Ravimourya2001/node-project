@@ -1,5 +1,5 @@
 # Stage 1: Build stage (dev tools)
-FROM node:18 AS build
+FROM node:18-alpine AS build
 
 WORKDIR /usr/src/app
 COPY package*.json ./
@@ -7,7 +7,7 @@ RUN npm install
 COPY . .
 
 # Stage 2: Production stage
-FROM node:18 AS production
+FROM node:18-alpine AS production
 
 WORKDIR /usr/src/app
 COPY package*.json ./
