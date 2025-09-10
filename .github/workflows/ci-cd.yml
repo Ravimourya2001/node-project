@@ -49,5 +49,5 @@ jobs:
       # Step 8: Push Docker image
       - name: Push Docker image
         run: |
-          docker tag my-node-app ${{ secrets.DOCKER_USERNAME }}/my-node-app:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-node-app:latest
+          docker tag my-node-app ${{ secrets.DOCKER_USERNAME }}/my-node-app:${GITHUB_SHA::7}
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-node-app:${GITHUB_SHA::7}
